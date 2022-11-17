@@ -1,0 +1,20 @@
+#data-table_filter,
+.dataTables_paginate .pagination{
+    float: right;
+}
+
+
+.dt-buttons button{
+    color: #fff;
+    background-color: #321fdb;
+    border: 1px solid #321fdb;
+    font-size: 14px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    transition: .3s;
+}
+
+.dt-buttons button:hover{
+    background-color: #5141E0;
+    border: 1px solid #5141E0;
+}
