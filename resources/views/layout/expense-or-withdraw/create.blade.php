@@ -1,16 +1,16 @@
 @extends('app')
 
 <!-- Start:Title -->
-@section('title','Expense Add')
+@section('title','Expense | Withdraw')
 <!-- End:Title -->
 
 <!-- Start:Sub Header Menu -->
 @section('sub-header-menu')
     <li class="breadcrumb-item">
-        <span>Expense</span>
+        <span>Expense | Withdraw</span>
     </li>
     <li class="breadcrumb-item active">
-        <span>Add Expense</span>
+        <span>Add</span>
     </li>
 @endsection
 <!-- End:Sub Header Menu -->
@@ -21,52 +21,71 @@
     <div class="container-lg">
         <div class="row">
             <div class="col-sm-12 col-lg-12">
+                <!-- Start:Alert -->
+                @include('partials.alert')
+                <!-- End:Alert -->
                 <div class="card">
                     <div class="card-header">
-                        <strong>Expense</strong>
+                        <strong>Expense | Withdraw</strong>
                         <span class="small ms-1">
                             Add
                         </span>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('expense.store') }}" method="post">
+                        <form action="{{ route('expense-or-withdraw.store') }}" method="post">
                             <div class="row">
                                 @csrf
-                                <div class="col-12 col-sm-12 col-md-6 mb-3">
-                                    <label for="expense_title" class="form-label">
-                                        Expense Title<span class="text-danger">*</span>
-                                    </label>
-                                    <input type="text" class="form-control" id="expense_title" placeholder="Example" name="expense_title" value="{{ old('expense_title') }}">
-                                    @if ($errors->has('expense_title'))
-                                        <span class="help-block text-danger">
-                                            {{ $errors->first('expense_title') }}
-                                        </span>
-                                    @endif
-                                </div>
-                                <div class="col-12 col-sm-12 col-md-6 mb-3">
-                                    <label for="transaction_way" class="form-label">
+                                <div class="col-12 mb-3">
+                                    <label for="transaction_type" class="form-label">
                                         Transaction Type<span class="text-danger">*</span>
                                     </label>
-                                    <select name="transaction_way" id="transaction_way" class="form-control" onchange="expenseTransactionType()">
-                                        <option value="" selected disabled> Select</option>
-                                        <option value="1">Cash</option>
-                                        <option value="2">Bank</option>
+                                    <select name="transaction_type" id="transaction_type" class="form-control">
+                                        <option value="" selected disabled>Select</option>
+                                        <option value="1" >Withdraw</option>
+                                        <option value="5" >Expense</option>
                                     </select>
-                                    @if ($errors->has('transaction_way'))
+                                    @if ($errors->has('transaction_type'))
                                         <span class="help-block text-danger">
-                                            {{ $errors->first('transaction_way') }}
+                                            {{ $errors->first('transaction_type') }}
                                         </span>
                                     @endif
                                 </div>
 
                                 <div class="col-12 col-sm-12 col-md-6 mb-3">
-                                    <label for="expense_date" class="form-label">
+                                    <label for="title" class="form-label">
+                                        Title<span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="title" placeholder="Example" name="title" value="{{ old('title') }}">
+                                    @if ($errors->has('title'))
+                                        <span class="help-block text-danger">
+                                            {{ $errors->first('title') }}
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6 mb-3">
+                                    <label for="transaction_method" class="form-label">
+                                        Transaction Method<span class="text-danger">*</span>
+                                    </label>
+                                    <select name="transaction_method" id="transaction_method" class="form-control" onchange="expenseTransactionType()">
+                                        <option value="" selected disabled> Select</option>
+                                        <option value="1">Cash</option>
+                                        <option value="2">Bank</option>
+                                    </select>
+                                    @if ($errors->has('transaction_method'))
+                                        <span class="help-block text-danger">
+                                            {{ $errors->first('transaction_method') }}
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <div class="col-12 col-sm-12 col-md-6 mb-3">
+                                    <label for="date" class="form-label">
                                         Date<span class="text-danger">*</span>
                                     </label>
-                                    <input type="date" class="form-control" id="expense_date" name="expense_date" value="{{ old('expense_date') }}">
-                                    @if ($errors->has('expense_date'))
+                                    <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}">
+                                    @if ($errors->has('date'))
                                         <span class="help-block text-danger">
-                                            {{ $errors->first('expense_date') }}
+                                            {{ $errors->first('date') }}
                                         </span>
                                     @endif
                                 </div>
@@ -76,9 +95,8 @@
                                         Bank Account<span class="text-danger">*</span>
                                     </label>
                                     <select name="account_id" id="account_id" class="form-control" onchange="getBalance()">
-                                        <option value="" selected disabled> Select</option>
                                         @foreach($accounts as $account)
-                                            <option value="{{ $account->id }}">{{ $account->branch->branch_name }} | {{ $account->branch->bank->bank_name }}</option>
+                                            <option value="{{ $account->id }}" {{ $account->is_default == 1 ? 'selected' : '' }}  >{{ $account->account_number }} | {{ $account->account_holder_name }}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('account_id'))
@@ -90,7 +108,7 @@
 
                                 <div class="col-12 col-sm-12 col-md-6 mb-3 bank_transaction" style="display: none">
                                     <label for="cheque_number" class="form-label">
-                                        Cheque Number<span class="text-danger">*</span>
+                                        Cheque Number
                                     </label>
                                     <input type="text" class="form-control" id="cheque_number" name="cheque_number" placeholder="Example" value="{{ old('cheque_number') }}">
                                     @if ($errors->has('cheque_number'))
@@ -149,10 +167,11 @@
     <script>
         // Hide Or View Bank Account Options And Cheque Number
         function expenseTransactionType() {
-            var transaction_way = $("#transaction_way").val();
-            console.log(transaction_way);
-            if (transaction_way == 2) {
+            var transactionMethod = $("#transaction_method").val();
+            console.log(transactionMethod);
+            if (transactionMethod == 2) {
                 $('.bank_transaction').show();
+                getBalance();
             } else {
                 $('.bank_transaction').hide();
                 var url = '{{ route("get-account-balance",":id") }}';
@@ -175,10 +194,10 @@
 
         // Get Account Balance
         function getBalance() {
-            var transactionType = $('#transaction_way').val();
+            var transactionMethod = $('#transaction_method').val();
             var accountId = $('#account_id').val();
             if (accountId !== null) {
-                if (transactionType == 2) {
+                if (transactionMethod == 2) {
                     var url = '{{ route("get-account-balance",":id") }}';
                     $.ajax({
                         type: "GET",
@@ -187,6 +206,7 @@
                             $('#balance').show();
                             document.getElementById('balance').innerHTML = '( ' + resp + ' )';
                             $('#amount_balance').val(resp);
+                            console.log(resp);
                             document.getElementById('amount').max = resp;
                         }, // success end
                         error: function (error) {
@@ -216,6 +236,5 @@
                 });
             }
         }
-
     </script>
 @endpush

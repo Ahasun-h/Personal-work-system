@@ -36,9 +36,7 @@
                                     </label>
                                     <select name="bank_id" id="bank_id" class="form-control" disabled>
                                         <option value="" disabled> Select</option>
-                                        @foreach($banks as $bank)
-                                            <option value="{{ $bank->id }}" {{ $bank->id == $branch->bank_id ? 'selected' : ''  }}>{{ $bank->bank_name }}</option>
-                                        @endforeach
+                                        <option >{{ $branch->bank->bank_name }}</option>
                                     </select>
                                 </div>
 

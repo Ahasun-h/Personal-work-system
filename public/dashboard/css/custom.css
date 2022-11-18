@@ -18,3 +18,11 @@
     background-color: #5141E0;
     border: 1px solid #5141E0;
 }
+
+/*SideBar Menu*/
+.sidebar-nav .nav-link{
+    border-left: 5px solid transparent;
+}
+.sidebar-nav .nav-link.active{
+    border-left: 5px solid rgb(255 255 255);
+}

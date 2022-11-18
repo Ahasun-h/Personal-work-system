@@ -1,16 +1,16 @@
 @extends('app')
 
 <!-- Start:Title -->
-@section('title','Expense List')
+@section('title','Income | Deposit List')
 <!-- End:Title -->
 
 <!-- Start:Sub Header Menu -->
 @section('sub-header-menu')
     <li class="breadcrumb-item">
-        <span>Expense</span>
+        <span>Income | Deposit</span>
     </li>
     <li class="breadcrumb-item active">
-        <span>Expense Account</span>
+        <span>List</span>
     </li>
 @endsection
 <!-- End:Sub Header Menu -->
@@ -26,12 +26,12 @@
         <div class="row">
             <div class="col-sm-12 col-lg-12">
                 <!-- Start:Alert -->
-                @include('partials.alert')
-                <!-- End:Alert -->
+            @include('partials.alert')
+            <!-- End:Alert -->
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-content-center">
                         <div class="d-flex align-content-center">
-                            <strong>Expense</strong>
+                            <strong>Income | Deposit</strong>
                             <span class="small ms-1">
                                 List
                             </span>
@@ -39,22 +39,22 @@
                         <div id="file_exports">
 
                         </div>
-                        <a href="{{ route('expense.create') }}" type="button" class="btn btn-sm btn-primary text-white">
+                        <a href="{{ route('income-or-deposit.create') }}" type="button" class="btn btn-sm btn-primary text-white">
                             <i class='bx bx-plus'></i>&nbsp;Add New
                         </a>
                     </div>
                     <div class="card-body">
                         <table id="data-table" class="table table-striped w-100" >
                             <thead class="bg-primary text-white">
-                            <tr>
-                                <th>SL#</th>
-                                <th>Account No</th>
-                                <th>Bank | Branch</th>
-                                <th>Date</th>
-                                <th>Amount</th>
-                                <th>Added</th>
-                                <th>Actions</th>
-                            </tr>
+                                <tr>
+                                    <th>SL#</th>
+                                    <th>Type</th>
+                                    <th>Account No | Name</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Added</th>
+                                    <th>Actions</th>
+                                </tr>
                             </thead>
                             <tbody>
 
@@ -113,14 +113,14 @@
                 pagingType: "full_numbers",
                 dom: "<'row'<'col-sm-2'l><'col-sm-7 text-center'B><'col-sm-3'f>>tipr",
                 ajax: {
-                    url: "{{route('expense.index')}}",
+                    url: "{{route('income-or-deposit.index')}}",
                     type: "get"
                 },
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-                    {data: 'account', name: 'account', orderable: true, searchable: true},
-                    {data: 'bank_and_branch', name: 'bank_and_branch', orderable: true, searchable: true},
-                    {data: 'expense_date', name: 'expense_date', orderable: true, searchable: true},
+                    {data: 'transaction_type', name: 'transaction_type', orderable: true, searchable: true},
+                    {data: 'account_and_name', name: 'account_and_name', orderable: true, searchable: true},
+                    {data: 'date', name: 'date', orderable: true, searchable: true},
                     {data: 'amount', name: 'amount', orderable: true, searchable: true},
                     //only those have manage_user permission will get access
                     {data: 'created_by_user.name', name: 'created_by_user.name', orderable: true, searchable: true},
@@ -130,46 +130,6 @@
 
             dTable.buttons().container().appendTo( '#file_exports' );
         });
-
-        // Status Change Confirm Alert
-        function showStatusChangeAlert(id) {
-            event.preventDefault();
-            swal({
-                title: `Are you sure?`,
-                text: "You want to update the status?.",
-                buttons: true,
-                infoMode: true,
-            }).then((willStatusChange) => {
-                if (willStatusChange) {
-                    statusChange(id);
-                }
-            });
-        };
-
-        // Status Change
-        function statusChange(id) {
-            var url = '{{ route("account.status",":id") }}';
-            $.ajax({
-                type: "GET",
-                url: url.replace(':id', id),
-                success: function (resp) {
-                    console.log(resp);
-                    // Reloade DataTable
-                    $('#data-table').DataTable().ajax.reload();
-                    if (resp.success === true) {
-                        // show toast message
-                        toastr.success(resp.message);
-                    } else if (resp.errors) {
-                        toastr.error(resp.errors[0]);
-                    } else {
-                        toastr.error(resp.message);
-                    }
-                }, // success end
-                error: function (error) {
-                    // location.reload();
-                } // Error
-            })
-        }
 
         // delete Confirm
         function showDeleteConfirm(id) {
@@ -188,7 +148,7 @@
 
         // Delete Button
         function deleteItem(id) {
-            var url = '{{ route("expense.destroy",":id") }}';
+            var url = '{{ route("income-or-deposit.destroy",":id") }}';
             $.ajax({
                 type: "DELETE",
                 url: url.replace(':id', id),

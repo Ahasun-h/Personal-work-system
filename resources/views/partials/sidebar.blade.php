@@ -39,6 +39,20 @@
             </ul>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('expense-or-withdraw.index') }}">
+                <i class='nav-icon bx bx-dollar'></i>
+                Expense | Withdraw
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('income-or-deposit.index') }}">
+                <i class='nav-icon bx bx-message-alt-add'></i>
+                Income | Deposit
+            </a>
+        </li>
+
         {{--<li class="nav-title">Extras</li>--}}
         {{--<li class="nav-group">--}}
             {{--<a class="nav-link nav-group-toggle" href="#">--}}

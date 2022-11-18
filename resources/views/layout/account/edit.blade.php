@@ -43,7 +43,7 @@
                                     <select name="branch_id" id="branch_id" class="form-control">
                                         <option value="" selected> Select</option>
                                         @foreach($branchs as $branch)
-                                            <option value="{{ $branch->id }}" {{ $account->branch_id == $branch->id ? 'selected' : '' }} >{{ $branch->branch_name }} | {{ $branch->bank->bank_name }}</option>
+                                            <option value="{{ $branch->id }}" {{ $account->branch_id == $branch->id ? 'selected' : '' }} {{ $branch->status == 0 ? 'disabled' : '' }} class="{{ $branch->status == 0 ? 'bg-danger text-white' : '' }}" >{{ $branch->branch_name }} | {{ $branch->bank->bank_name }}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('branch_id'))

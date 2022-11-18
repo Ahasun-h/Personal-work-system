@@ -12,7 +12,7 @@ class Accounts
     public static function debitBalance($account_id)
     {
         return Transaction::where('account_id', $account_id)
-            ->where('transaction_type', 1)
+            ->where('type', 1)
             ->sum('amount');
     }
 
@@ -20,7 +20,7 @@ class Accounts
     public static function creditBalance($account_id)
     {
         return Transaction::where('account_id', $account_id)
-            ->where('transaction_type', 2)
+            ->where('type', 2)
             ->sum('amount');
     }
 

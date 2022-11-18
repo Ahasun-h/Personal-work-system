@@ -9,6 +9,7 @@ use App\Models\Bank;
 use App\Models\Branch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use yajra\Datatables\Datatables;
 
 class BranchController extends Controller
@@ -35,10 +36,10 @@ class BranchController extends Controller
                 })
                 ->addColumn('action', function ($branchs) {
                     return '<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                              <a href="' . route('branch.show', $branchs->id) . '" type="button" class="btn btn-info text-white" title="Edit">
+                              <a href="' . route('branch.show', Crypt::encrypt($branchs->id)) . '" type="button" class="btn btn-info text-white" title="Edit">
                                 <i class="bx bx-show"></i>
                               </a>
-                              <a href="' . route('branch.edit', $branchs->id) . '" type="button" class="btn btn-success text-white" title="Edit">
+                              <a href="' . route('branch.edit', Crypt::encrypt($branchs->id)) . '" type="button" class="btn btn-success text-white" title="Edit">
                                 <i class="bx bxs-edit"></i>
                               </a>
                               <a href="#" onclick="showDeleteConfirm(' . $branchs->id . ')" type="button" class="btn btn-danger text-white" title="Delete">
@@ -92,12 +93,11 @@ class BranchController extends Controller
      */
     public function show($id)
     {
-        //Get All Bank Data
-        $banks = Bank::where('status',1)->get();
-        // Get Selected Branch Data
-        $branch = Branch::findOrFail($id);
 
-        return view('layout.branch.show',compact('banks','branch'));
+        // Get Selected Branch Data
+        $branch = Branch::findOrFail(Crypt::decrypt($id));
+
+        return view('layout.branch.show',compact('branch'));
     }
 
     /**
@@ -111,7 +111,7 @@ class BranchController extends Controller
         //Get All Bank Data
         $banks = Bank::all();
         // Get Selected Branch Data
-        $branch = Branch::findOrFail($id);
+        $branch = Branch::findOrFail(Crypt::decrypt($id));
 
         return view('layout.branch.edit',compact('banks','branch'));
     }

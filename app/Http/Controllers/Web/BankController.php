@@ -8,6 +8,7 @@ use App\Http\Requests\Bank\UpdateBankRequest;
 use App\Models\Bank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use yajra\Datatables\Datatables;
 use Illuminate\Support\Str;
 
@@ -39,10 +40,10 @@ class BankController extends Controller
                 })
                 ->addColumn('action', function ($banks) {
                     return '<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                              <a href="' . route('bank.show', $banks->id) . '" type="button" class="btn btn-info text-white" title="Edit">
+                              <a href="' . route('bank.show', Crypt::encrypt($banks->id)) . '" type="button" class="btn btn-info text-white" title="Edit">
                                 <i class="bx bx-show"></i>
                               </a>
-                              <a href="' . route('bank.edit', $banks->id) . '" type="button" class="btn btn-success text-white" title="Edit">
+                              <a href="' . route('bank.edit', Crypt::encrypt($banks->id)) . '" type="button" class="btn btn-success text-white" title="Edit">
                                 <i class="bx bxs-edit"></i>
                               </a>
                               <a href="#" onclick="showDeleteConfirm(' . $banks->id . ')" type="button" class="btn btn-danger text-white" title="Delete">
@@ -93,7 +94,7 @@ class BankController extends Controller
      */
     public function show($id)
     {
-        $bank = Bank::findOrFail($id);
+        $bank = Bank::findOrFail(Crypt::decrypt($id));
         return view('layout.bank.show', compact('bank'));
     }
 
@@ -105,7 +106,7 @@ class BankController extends Controller
      */
     public function edit($id)
     {
-        $bank = Bank::findOrFail($id);
+        $bank = Bank::findOrFail(Crypt::decrypt($id));
         return view('layout.bank.edit', compact('bank'));
     }
 

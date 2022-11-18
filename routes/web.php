@@ -6,8 +6,9 @@ use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\BankController;
 use App\Http\Controllers\Web\BranchController;
 use App\Http\Controllers\Web\AccountController;
-use App\Http\Controllers\Web\ExpenseController;
+use App\Http\Controllers\Web\ExpenseOrWithdrawController;
 use App\Http\Controllers\Web\AccountBalanceController;
+use App\Http\Controllers\Web\IncomeOrDepositController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,8 +45,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('account/status/{id}',[AccountController::class,'status'])->name('account.status');
     Route::get('account/default-account-update/{id}',[AccountController::class,'defaultAccountUpdate'])->name('account.default-account-update');
 
-    // Expense
-     Route::resource('expense',ExpenseController::class);
+    // Expense Or Withdraw
+     Route::resource('expense-or-withdraw',ExpenseOrWithdrawController::class);
+
+    // Income Or Deposit
+    Route::resource('income-or-deposit',IncomeOrDepositController::class);
 
      // Get Account Balance
     Route::get('get-accout-balance/{id}' , [AccountBalanceController::class,'getAccountBalance'])->name('get-account-balance');
