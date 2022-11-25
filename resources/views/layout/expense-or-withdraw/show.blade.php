@@ -1,16 +1,16 @@
 @extends('app')
 
 <!-- Start:Title -->
-@section('title','ExpenseOrWithdraw')
+@section('title','Expense | Withdraw Show')
 <!-- End:Title -->
 
 <!-- Start:Sub Header Menu -->
 @section('sub-header-menu')
     <li class="breadcrumb-item">
-        <span>Expense</span>
+        <span>Expense | Withdraw</span>
     </li>
     <li class="breadcrumb-item active">
-        <span>Show Expense</span>
+        <span>Show</span>
     </li>
 @endsection
 <!-- End:Sub Header Menu -->
@@ -23,7 +23,7 @@
             <div class="col-sm-12 col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Expense</strong>
+                        <strong>Expense | Withdraw</strong>
                         <span class="small ms-1">
                             Show
                         </span>

@@ -168,8 +168,6 @@ class ExpenseOrWithdrawController extends Controller
         // Get Previous Account Balance
         $balance = $balance + $expense_or_withdraw->amount;
 
-
-
         // Update Balance
         $balance = $balance - $request->amount;
 

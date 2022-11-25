@@ -26,8 +26,8 @@
         <div class="row">
             <div class="col-sm-12 col-lg-12">
                 <!-- Start:Alert -->
-            @include('partials.alert')
-            <!-- End:Alert -->
+                @include('partials.alert')
+                <!-- End:Alert -->
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-content-center">
                         <div class="d-flex align-content-center">

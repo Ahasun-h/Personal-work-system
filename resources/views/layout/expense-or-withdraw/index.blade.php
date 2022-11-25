@@ -1,7 +1,7 @@
 @extends('app')
 
 <!-- Start:Title -->
-@section('title','Expense | Withdraw')
+@section('title','Expense | Withdraw List')
 <!-- End:Title -->
 
 <!-- Start:Sub Header Menu -->

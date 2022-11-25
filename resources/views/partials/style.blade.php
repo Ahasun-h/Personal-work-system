@@ -33,6 +33,5 @@
     // Bootstrap ID
     gtag('config', 'UA-118965717-5');
 </script>
-<link href="{{ asset('dashboard/vendors/@coreui/chartjs/css/coreui-chartjs.css') }}" rel="stylesheet">
 
-@yield('style')
+@stack('style')

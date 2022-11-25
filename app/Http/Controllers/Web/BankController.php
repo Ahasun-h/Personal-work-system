@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Crypt;
 use yajra\Datatables\Datatables;
 use Illuminate\Support\Str;
 
+
 class BankController extends Controller
 {
     /**

@@ -46,17 +46,17 @@
                     <div class="card-body">
                         <table id="data-table" class="table table-striped w-100" >
                             <thead class="bg-primary text-white">
-                            <tr>
-                                <th>SL#</th>
-                                <th>Holder Name</th>
-                                <th>Account Number</th>
-                                <th>Branch & Bank</th>
-                                <th>Balance</th>
-                                <th>Default Account</th>
-                                <th>Added</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
+                                <tr>
+                                    <th>SL#</th>
+                                    <th>Name</th>
+                                    <th>Account Number</th>
+                                    <th>Branch & Bank</th>
+                                    <th>Balance</th>
+                                    <th>Default Account</th>
+                                    <th>Added</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
                             </thead>
                             <tbody>
 

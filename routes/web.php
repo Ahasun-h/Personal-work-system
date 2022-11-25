@@ -9,6 +9,10 @@ use App\Http\Controllers\Web\AccountController;
 use App\Http\Controllers\Web\ExpenseOrWithdrawController;
 use App\Http\Controllers\Web\AccountBalanceController;
 use App\Http\Controllers\Web\IncomeOrDepositController;
+use App\Http\Controllers\Web\FundTransferController;
+use App\Http\Controllers\Web\BalanceSheetController;
+use App\Http\Controllers\Web\SettingController;
+use App\Http\Controllers\Web\UserUpdateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +54,25 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Income Or Deposit
     Route::resource('income-or-deposit',IncomeOrDepositController::class);
+
+    // Fund Transfer
+    Route::resource('fund-transfer',FundTransferController::class);
+
+    // Balance Sheet
+    Route::get('account-balance-sheet',[BalanceSheetController::class,'accountBalanceSheet'])->name('account.balance-sheet');
+    Route::get('account-statement/{id}',[BalanceSheetController::class,'accountStatement'])->name('account.statement');
+
+    // Setting
+    Route::get('setting',[SettingController::class,'index'])->name('setting');
+    Route::post('setting-update',[SettingController::class,'update'])->name('setting.update');
+
+    // User Update
+    Route::get('user-profile',[UserUpdateController::class,'userProfile'])->name('user.profile');
+    Route::post('user-update',[UserUpdateController::class,'update'])->name('user.update');
+
+    // User Password Change
+    Route::get('user-password',[UserUpdateController::class,'userPassword'])->name('user.password');
+    Route::post('user-password/update',[UserUpdateController::class,'userPasswordUpdate'])->name('user.password-update');
 
      // Get Account Balance
     Route::get('get-accout-balance/{id}' , [AccountBalanceController::class,'getAccountBalance'])->name('get-account-balance');

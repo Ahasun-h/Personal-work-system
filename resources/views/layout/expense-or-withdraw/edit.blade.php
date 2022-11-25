@@ -97,7 +97,7 @@
                                     </label>
                                     <select name="account_id" id="account_id" class="form-control" onchange="getBalance()">
                                         @foreach($accounts as $account)
-                                            <option value="{{ $account->id }}" {{ $account->id == $expense_or_withdraw->account_number ? 'selected' : '' }} class="{{ $account->status == 0 ? 'bg-danger text-white' : '' }}" {{ $account->status == 0 ? 'disabled' : '' }} >{{ $account->account_number }} | {{ $account->account_holder_name }}</option>
+                                            <option value="{{ $account->id }}" {{ $account->id == $expense_or_withdraw->account_id ? 'selected' : '' }} class="{{ $account->status == 0 ? 'bg-danger text-white' : '' }}" {{ $account->status == 0 ? 'disabled' : '' }} >{{ $account->account_number }} | {{ $account->account_holder_name }}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('account_id'))
@@ -170,6 +170,8 @@
         function getBalance() {
             var transactionMethod = $('#transaction_method').val();
             var accountId = $('#account_id').val();
+            var expenseAccountId = {!! $expense_or_withdraw->account_id !!};
+            var amount = {{ $expense_or_withdraw->amount }}
             if (accountId !== null) {
                 if (transactionMethod == 2) {
                     var url = '{{ route("get-account-balance",":id") }}';
@@ -178,9 +180,18 @@
                         url: url.replace(':id', accountId),
                         success: function (resp) {
                             $('#balance').show();
-                            document.getElementById('balance').innerHTML = '( ' + resp + ' )';
-                            $('#amount_balance').val(resp);
-                            document.getElementById('amount').max = resp;
+                            if( accountId == expenseAccountId ){
+                                var result = amount + resp;
+                                document.getElementById('balance').innerHTML = '( ' + result + ' )';
+                                $('#amount_balance').val(result);
+                                document.getElementById('amount').max = result;
+                            }
+                            else{
+                                document.getElementById('balance').innerHTML = '( ' + resp + ' )';
+                                $('#amount_balance').val(resp);
+                                document.getElementById('amount').max = resp;
+                            }
+
                         }, // success end
                         error: function (error) {
                             // location.reload();
