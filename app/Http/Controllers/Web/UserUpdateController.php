@@ -12,14 +12,23 @@ use Illuminate\Support\Facades\Hash;
 class UserUpdateController extends Controller
 {
 
-
+    /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function userProfile(){
         // Get Setting Data
         return view('layout.setting.setting');
     }
 
 
-    //
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request){
         $request->validate([
             'name' => 'required|string',
@@ -49,11 +58,22 @@ class UserUpdateController extends Controller
         return redirect()->route('user.profile')->with('t-success', 'Profile Update successfully.');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function userPassword(){
         // Get Setting Data
         return view('layout.setting.setting');
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function userPasswordUpdate(Request $request){
         $request->validate([
             'old_password'     => 'required|string|min:6',

@@ -16,7 +16,9 @@ class BalanceSheetController extends Controller
     /**
      * Display a listing of Accounts balance and other information.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function accountBalanceSheet(Request $request)
     {
@@ -65,7 +67,10 @@ class BalanceSheetController extends Controller
     /**
      * Display a specified of Accounts balance and other information.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function accountStatement(Request $request,$id){
 

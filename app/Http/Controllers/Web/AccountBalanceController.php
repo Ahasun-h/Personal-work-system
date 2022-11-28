@@ -11,8 +11,9 @@ class AccountBalanceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function getAccountBalance(Request $request,$id){
         if ($request->ajax()) {

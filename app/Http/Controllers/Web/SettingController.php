@@ -13,8 +13,7 @@ class SettingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(){
 
@@ -27,9 +26,8 @@ class SettingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param SettingRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(SettingRequest $request){
         $setting = Setting::latest('id')->first();
