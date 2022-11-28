@@ -6,13 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Expense extends Model
+class FundTransfer extends Model
 {
     use HasFactory,SoftDeletes;
 
-    // Relation With Bank-Account Model
-    public function transaction() {
-        return $this->belongsTo(Transaction::class, 'transaction_id')->withTrashed();
+    // Relation With Transaction
+    public function inTransactionId() {
+        return $this->belongsTo(Transaction::class, 'in_transaction_id')->withTrashed();
+    }
+
+    public function outTransactionId() {
+        return $this->belongsTo(Transaction::class, 'out_transaction_id')->withTrashed();
     }
 
     // Relation With User Model

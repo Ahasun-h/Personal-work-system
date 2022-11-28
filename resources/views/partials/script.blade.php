@@ -2,12 +2,10 @@
 <script src="{{ asset('dashboard/vendors/@coreui/coreui/js/coreui.bundle.min.js') }}"></script>
 <script src="{{ asset('dashboard/vendors/simplebar/js/simplebar.min.js') }}"></script>
 <!-- Plugins and scripts required by this view-->
-<script src="{{ asset('dashboard/vendors/chart.js/js/chart.min.js') }}"></script>
-<script src="{{ asset('dashboard/vendors/@coreui/chartjs/js/coreui-chartjs.js') }}"></script>
 <script src="{{ asset('dashboard/vendors/@coreui/utils/js/coreui-utils.js') }}"></script>
 <!-- Ajax CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script src="{{ asset('dashboard/js/main.js') }}"></script>
+{{--<script src="{{ asset('dashboard/js/main.js') }}"></script>--}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 

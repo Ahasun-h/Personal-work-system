@@ -1,7 +1,7 @@
 @extends('app')
 
 <!-- Start:Title -->
-@section('title','Account Create')
+@section('title','Account Add')
 <!-- End:Title -->
 
 <!-- Start:Sub Header Menu -->

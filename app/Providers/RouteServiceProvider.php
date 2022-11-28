@@ -33,7 +33,15 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware('Web')
+            Route::middleware(['Web', 'setup'])
+                ->prefix('setup')
+                ->name('setup.')
+                ->group(base_path('routes/setup.php'));
+
+            Route::middleware(['Web', 'setup.check','auth'])
+                ->group(base_path('routes/backend.php'));
+
+            Route::middleware(['Web','setup.check'])
                 ->group(base_path('routes/Web.php'));
         });
     }
@@ -50,3 +58,4 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 }
+

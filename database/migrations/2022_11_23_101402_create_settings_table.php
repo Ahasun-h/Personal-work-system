@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('expenses', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('expense_title');
-            $table->date('expense_date');
-            $table->integer('transaction_way');
-            $table->integer('transaction_id');
-            $table->double('amount');
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->string('title')->default('Account System');
+            $table->string('logo')->nullable();
+            $table->string('favicon')->nullable();
+            $table->string('address')->default('26985 Brighton Lane, Lake Forest, CA 92630');
+            $table->longText('description');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expenses');
+        Schema::dropIfExists('settings');
     }
 };

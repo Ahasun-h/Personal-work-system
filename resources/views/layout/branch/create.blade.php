@@ -1,7 +1,7 @@
 @extends('app')
 
 <!-- Start:Title -->
-@section('title','Branch Create')
+@section('title','Branch Add')
 <!-- End:Title -->
 
 <!-- Start:Sub Header Menu -->

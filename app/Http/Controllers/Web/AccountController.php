@@ -12,6 +12,7 @@ use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use yajra\Datatables\Datatables;
 
@@ -20,7 +21,9 @@ class AccountController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function index(Request $request)
     {
@@ -48,10 +51,10 @@ class AccountController extends Controller
                 })
                 ->addColumn('action', function ($accounts) {
                     return '<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                              <a href="' . route('account.show', $accounts->id) . '" type="button" class="btn btn-info text-white" title="Edit">
+                              <a href="' . route('account.show',Crypt::encrypt($accounts->id)) . '" type="button" class="btn btn-info text-white" title="Edit">
                                 <i class="bx bx-show"></i>
                               </a>
-                              <a href="' . route('account.edit', $accounts->id) . '" type="button" class="btn btn-success text-white" title="Edit">
+                              <a href="' . route('account.edit',Crypt::encrypt($accounts->id)) . '" type="button" class="btn btn-success text-white" title="Edit">
                                 <i class="bx bxs-edit"></i>
                               </a>
                             </div>';
@@ -71,7 +74,7 @@ class AccountController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -83,8 +86,8 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreAccountRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreAccountRequest $request)
     {
@@ -103,11 +106,12 @@ class AccountController extends Controller
 
             // Transaction Store
             $transaction = new Transaction();
-            $transaction->transaction_title = 'Initial Balance Deposit';
-            $transaction->transaction_date = Carbon::now();
+            $transaction->title = 'Initial Balance Deposit';
+            $transaction->date = Carbon::now();
             $transaction->account_id = $account->id;
-            $transaction->transaction_purpose = 0;
-            $transaction->transaction_type = 2;
+            $transaction->transaction_method = 2;
+            $transaction->transaction_type = 0;
+            $transaction->type = 2;
             $transaction->amount = $request->amount;
             $transaction->cheque_number = $request->cheque_number;
             $transaction->created_by = Auth::user()->id;
@@ -125,37 +129,37 @@ class AccountController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show($id)
     {
         // Get Selected Account Data
-        $account = Account::findOrFail($id);
+        $account = Account::findOrFail(Crypt::decrypt($id));
         return view('layout.account.show',compact('account'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
         // Get All Branch
-        $branchs = Branch::where('status',1)->get();
+        $branchs = Branch::all();
         // Get Selected Account Data
-        $account = Account::findOrFail($id);
+        $account = Account::findOrFail(Crypt::decrypt($id));
         return view('layout.account.edit',compact('branchs','account'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateAccountRequest $request
+     * @param Account $account
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateAccountRequest $request, Account $account)
     {
@@ -174,8 +178,8 @@ class AccountController extends Controller
     /**
      * Change Data the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function status($id){
         $account = Account::findOrfail($id);
@@ -198,12 +202,13 @@ class AccountController extends Controller
             ]);
         }
     }
-
+    
     /**
      * Change Data the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function defaultAccountUpdate(Request $request,$id){
         if($request->ajax()){
