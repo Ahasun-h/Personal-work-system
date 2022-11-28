@@ -63,9 +63,11 @@
                                 </label>
                                 <select name="out_account" id="out_account" class="form-control" onchange="getBalance()">
                                     <option value="0">A-0001 | Cash</option>
-                                    @foreach($accounts as $account)
-                                    <option value="{{ $account->id }}" {{ $account->is_default == 1 ? 'selected' : '' }}  >{{ $account->account_number }} | {{ $account->account_holder_name }}</option>
-                                    @endforeach
+                                    @if ($errors->has('transaction_method'))
+                                        @foreach($accounts as $account)
+                                        <option value="{{ $account->id }}" {{ $account->is_default == 1 ? 'selected' : '' }}  >{{ $account->account_number }} | {{ $account->account_holder_name }}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                                 @if ($errors->has('out_account'))
                                 <span class="help-block text-danger">
@@ -80,9 +82,11 @@
                                 <select name="in_account" id="in_account" class="form-control">
                                     <option value="" >Select</option>
                                     <option value="0">A-0001 | Cash</option>
-                                    @foreach($accounts as $account)
-                                        <option id="{{ $account->id }}" value="{{ $account->id }}" >{{ $account->account_number }} | {{ $account->account_holder_name }}</option>
-                                    @endforeach
+                                    @if ($errors->has('transaction_method'))
+                                        @foreach($accounts as $account)
+                                            <option id="{{ $account->id }}" value="{{ $account->id }}" >{{ $account->account_number }} | {{ $account->account_holder_name }}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                                 @if ($errors->has('in_account'))
                                 <span class="help-block text-danger">

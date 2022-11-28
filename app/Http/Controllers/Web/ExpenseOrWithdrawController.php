@@ -42,7 +42,7 @@ class ExpenseOrWithdrawController extends Controller
                             </div>';
                 })
                 ->addColumn('account_and_name', function ($transactions) {
-                    if($transactions->transaction_method == 2){
+                    if($transactions->method == 2){
                         return $transactions->bankAccount->account_number .' ( <span class="text-primary ">'. $transactions->bankAccount->account_holder_name .' </span> ) ';
                     }else{
                         return 'A-0001 ( <span class="text-primary "> Cash </span> )';
@@ -105,7 +105,7 @@ class ExpenseOrWithdrawController extends Controller
             } else {
                 $transaction->account_id = 0;
             }
-            $transaction->transaction_method = $request->transaction_method;
+            $transaction->method = $request->transaction_method;
             $transaction->transaction_type = $request->transaction_type;
             $transaction->type = 1;
             $transaction->amount = $request->amount;
@@ -160,7 +160,7 @@ class ExpenseOrWithdrawController extends Controller
     public function update(UpdateTransactionRequest $request, Transaction $expense_or_withdraw)
     {
         //  Transaction Type Check Bank Account Or Cash Account
-        if ($expense_or_withdraw->transaction_method == 2) {
+        if ($expense_or_withdraw->method == 2) {
             $balance = Accounts::postBalance($request->account_id);
         } else {
             $balance = Accounts::postBalance(0);
@@ -178,7 +178,7 @@ class ExpenseOrWithdrawController extends Controller
             // Transaction Update
             $expense_or_withdraw->title = $request->title;
             $expense_or_withdraw->date = $request->date;
-            if ($expense_or_withdraw->transaction_method == 2) {
+            if ($expense_or_withdraw->method == 2) {
                 $expense_or_withdraw->account_id = $request->account_id;
             } else {
                 $expense_or_withdraw->account_id = 0;

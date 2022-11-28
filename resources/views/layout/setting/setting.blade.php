@@ -169,7 +169,7 @@
                                         </div>
 
                                         <div class="form-group my-3">
-                                            <label for="title"><b>Name</b></label>
+                                            <label for="title"><b>Email</b></label>
                                             <input type="email" name="email" id="email" class="form-control" value="{{ auth()->user()->email }}">
                                             @error('email')
                                             <span class="text-danger" role="alert">
@@ -300,9 +300,7 @@
     </script>
 
     <script>
-
         function passwordVisisbility(input,icon){
-
             if($('.password_form #'+icon).hasClass('bx-low-vision')){
                 $('.password_form #'+icon).removeClass('bx-low-vision');
                 $('.password_form #'+icon).addClass('bx-show');
@@ -315,11 +313,7 @@
             }
         }
 
-
-
     </script>
-
-
 @endpush
 <!-- End:Script -->
 

@@ -69,7 +69,9 @@
                                     <select name="transaction_method" id="transaction_method" class="form-control" onchange="expenseTransactionType()">
                                         <option value="" selected disabled> Select</option>
                                         <option value="1">Cash</option>
+                                        @if(!$accounts->isEmpty())
                                         <option value="2">Bank</option>
+                                        @endif
                                     </select>
                                     @if ($errors->has('transaction_method'))
                                         <span class="help-block text-danger">
@@ -83,13 +85,14 @@
                                         Date<span class="text-danger">*</span>
                                     </label>
                                     <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}">
-                                    @if ($errors->has('date'))
+                                    @if($errors->has('date'))
                                         <span class="help-block text-danger">
                                             {{ $errors->first('date') }}
                                         </span>
                                     @endif
                                 </div>
 
+                                @if($errors->has('transaction_method'))
                                 <div class="col-12 col-sm-12 col-md-6 mb-3 bank_transaction" style="display: none">
                                     <label for="account_id" class="form-label">
                                         Bank Account<span class="text-danger">*</span>
@@ -105,6 +108,7 @@
                                         </span>
                                     @endif
                                 </div>
+                                @endif
 
                                 <div class="col-12 col-sm-12 col-md-6 mb-3 bank_transaction" style="display: none">
                                     <label for="cheque_number" class="form-label">

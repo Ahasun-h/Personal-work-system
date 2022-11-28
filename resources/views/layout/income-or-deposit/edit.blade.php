@@ -66,8 +66,9 @@
                                         Transaction Method<span class="text-danger">*</span>
                                     </label>
                                     <select id="transaction_method" class="form-control" disabled>
-                                        <option value="1" {{ $income_or_deposit->transaction_method == 1 ? 'selected' : '' }} >Cash</option>
-                                        <option value="2" {{ $income_or_deposit->transaction_method == 1 ? 'selected' : '' }} >Bank</option>
+                                        <option value="1" {{ $income_or_deposit->method == 1 ? 'selected' : '' }} >Cash</option>
+                                        <option value="2" {{ $income_or_deposit->method == 1 ? 'selected' : '' }} >Bank</option>
+                                        <option value="2" {{ $income_or_deposit->method == 1 ? 'selected' : '' }} >Bank</option>
                                     </select>
                                     @if ($errors->has('transaction_method'))
                                         <span class="help-block text-danger">

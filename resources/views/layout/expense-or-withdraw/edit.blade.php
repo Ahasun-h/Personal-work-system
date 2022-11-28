@@ -68,8 +68,8 @@
                                         Transaction Method<span class="text-danger">*</span>
                                     </label>
                                     <select id="transaction_method" class="form-control" disabled>
-                                        <option value="1" {{ $expense_or_withdraw->transaction_method == 1 ? 'selected' : '' }} >Cash</option>
-                                        <option value="2" {{ $expense_or_withdraw->transaction_method == 2 ? 'selected' : '' }} >Bank</option>
+                                        <option value="1" {{ $expense_or_withdraw->method == 1 ? 'selected' : '' }} >Cash</option>
+                                        <option value="2" {{ $expense_or_withdraw->method == 2 ? 'selected' : '' }} >Bank</option>
                                     </select>
                                     @if ($errors->has('transaction_method'))
                                         <span class="help-block text-danger">

@@ -1,10 +1,9 @@
 #data-table_filter,
-.dataTables_paginate .pagination{
+.dataTables_paginate .pagination {
     float: right;
 }
 
-
-.dt-buttons button{
+.dt-buttons button {
     color: #fff;
     background-color: #321fdb;
     border: 1px solid #321fdb;
@@ -14,24 +13,24 @@
     transition: .3s;
 }
 
-.dt-buttons button:hover{
+.dt-buttons button:hover {
     background-color: #5141E0;
     border: 1px solid #5141E0;
 }
 
 /*SideBar Menu*/
-.sidebar-nav .nav-link{
+.sidebar-nav .nav-link {
     border-left: 5px solid transparent;
 }
-.sidebar-nav .nav-link.active{
+
+.sidebar-nav .nav-link.active {
     border-left: 5px solid rgb(255 255 255);
 }
 
-
-.loding-data{
-    font-size:60px;
-    margin:50px auto 50px;
-    text-align:center;
+.loding-data {
+    font-size: 60px;
+    margin: 50px auto 50px;
+    text-align: center;
     display: block;
     color: #321fdb;
 
@@ -56,34 +55,42 @@
     animation-timing-function: linear;
 }
 
-    @-ms-keyframes spin {
-        from {
-            -ms-transform: rotate(0deg);
-        } to {
-              -ms-transform: rotate(360deg);
-          }
+@-ms-keyframes spin {
+    from {
+        -ms-transform: rotate(0deg);
     }
-    @-moz-keyframes spin {
-        from {
-            -moz-transform: rotate(0deg);
-        } to {
-              -moz-transform: rotate(360deg);
-          }
+    to {
+        -ms-transform: rotate(360deg);
     }
-    @-webkit-keyframes spin {
-        from {
-            -webkit-transform: rotate(0deg);
-        } to {
-              -webkit-transform: rotate(360deg);
-          }
+}
+
+@-moz-keyframes spin {
+    from {
+        -moz-transform: rotate(0deg);
     }
-    @keyframes spin {
-        from {
-            transform: rotate(0deg);
-        } to {
-              transform: rotate(360deg);
-          }
+    to {
+        -moz-transform: rotate(360deg);
     }
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 
 
 

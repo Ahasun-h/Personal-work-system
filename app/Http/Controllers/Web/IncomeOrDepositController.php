@@ -44,7 +44,7 @@ class IncomeOrDepositController extends Controller
                             </div>';
                 })
                 ->addColumn('account_and_name', function ($transactions) {
-                    if ($transactions->transaction_method == 2) {
+                    if ($transactions->method == 2) {
                         return $transactions->bankAccount->account_number . ' ( <span class="text-primary ">' . $transactions->bankAccount->account_holder_name . ' </span> ) ';
                     } else {
                         return 'A-0001 ( <span class="text-primary "> Cash </span> )';
@@ -94,7 +94,7 @@ class IncomeOrDepositController extends Controller
         } else {
             $transaction->account_id = 0;
         }
-        $transaction->transaction_method = $request->transaction_method;
+        $transaction->method = $request->transaction_method;
         $transaction->transaction_type = $request->transaction_type;
         $transaction->type = 2;
         $transaction->amount = $request->amount;
@@ -144,7 +144,7 @@ class IncomeOrDepositController extends Controller
     {
         $income_or_deposit->title = $request->title;
         $income_or_deposit->date = $request->date;
-        if ($income_or_deposit->transaction_method == 2) {
+        if ($income_or_deposit->method == 2) {
             $income_or_deposit->account_id = $request->account_id;
         } else {
             $income_or_deposit->account_id = 0;
